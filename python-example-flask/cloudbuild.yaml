@@ -57,8 +57,6 @@ steps:
       - '--platform'
       - 'managed'
       - '--allow-unauthenticated'
-      - '--env'
-      - 'NAME=Yuri'
   # [END cloudbuild_python_deploy_yaml]
   
 # [START cloudbuild_python_logs_yaml]
