@@ -35,6 +35,8 @@ steps:
       - '-t'
       - 'us-central1-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/$_IMAGE_NAME:$SHORT_SHA'
       - './python-example-flask'
+    env:
+      - 'NAME=Yuri'
   # [END cloudbuild_python_image_yaml]
 
   # [START cloudbuild_python_push_yaml]
