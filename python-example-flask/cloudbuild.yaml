@@ -46,11 +46,18 @@ steps:
   # [START cloudbuild_python_deploy_yaml]
   # Deploy to Cloud Run
   - name: google/cloud-sdk
-    args: ['gcloud', 'run', 'deploy', 'flask-app-test',
-           '--image=us-central1-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/$_IMAGE_NAME:$SHORT_SHA',
-           '--region', 'us-central1', '--platform', 'managed', 
-           '--allow-unauthenticated']
-    env:
+    args:
+      - 'gcloud'
+      - 'run'
+      - 'deploy'
+      - 'flask-app-test'
+      - '--image=us-central1-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/$_IMAGE_NAME:$SHORT_SHA'
+      - '--region'
+      - 'us-central1'
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated'
+      - '--env'
       - 'NAME=Yuri'
   # [END cloudbuild_python_deploy_yaml]
   
