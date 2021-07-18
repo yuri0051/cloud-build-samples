@@ -17,7 +17,7 @@ steps:
   # Install dependencies
   - name: python
     entrypoint: pip
-    args: ["install", "-r", "./python-example-flask/requirements.txt", "--user"]
+    args: ["install", "-r", "./$_SAMPLE_NAME/requirements.txt", "--user"]
 # [END cloudbuild_python_dependencies_yaml]
 
   # [START cloudbuild_python_tests_yaml]
@@ -33,21 +33,21 @@ steps:
     args:
       - 'build'
       - '-t'
-      - 'us-central1-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/python-example-flask:$SHORT_SHA'
+      - 'us-central1-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/$_IMAGE_NAME:$SHORT_SHA'
       - './python-example-flask'
   # [END cloudbuild_python_image_yaml]
 
   # [START cloudbuild_python_push_yaml]
   # Docker push to Google Artifact Registry
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push',  'us-central1-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/python-example-flask:$SHORT_SHA']
+    args: ['push',  'us-central1-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/$_IMAGE_NAME:$SHORT_SHA']
   # [END cloudbuild_python_push_yaml]
   
   # [START cloudbuild_python_deploy_yaml]
   # Deploy to Cloud Run
   - name: google/cloud-sdk
     args: ['gcloud', 'run', 'deploy', 'helloworld', 
-           '--image=us-central1-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/python-example-flask:$SHORT_SHA',
+           '--image=us-central1-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/$_IMAGE_NAME:$SHORT_SHA',
            '--region', 'us-central1', '--platform', 'managed', 
            '--allow-unauthenticated']
   # [END cloudbuild_python_deploy_yaml]
@@ -62,5 +62,5 @@ artifacts:
 # [END cloudbuild_python_logs_yaml]
 # Store images in Google Artifact Registry
 images:
-  - us-central1-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/python-example-flask:$SHORT_SHA
+  - us-central1-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/$_IMAGE_NAME:$SHORT_SHA
 # [END cloudbuild_python_yaml]
